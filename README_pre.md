@@ -30,6 +30,8 @@ IEEE Winter Conference on Applications of Computer Vision (WACV) 2019.
 - [Dependencies](#Dependencies)
 - [Usage](#Usage)
 - [Results](#Results)
+  - ResNet-20/32/44/56 on CIFAR-10
+  - AlexNet and ResNet-18/34/50/101 on ImageNet
 - [Methods](#Methods)
 
 
@@ -38,20 +40,52 @@ IEEE Winter Conference on Applications of Computer Vision (WACV) 2019.
 * Python 3.6 (Anaconda)
 * Pytorch 4.1
 
-The installation of pytorch environment could follow the steps in .... :+1:
-
-
-$$ g \sim \mathcal{G}(0,1) $$
 
 ## Usage
 
+For training the new model or evaluating the pretrained model, please use the following command in terminal. Remeber to revise the bash code with correct dataset/model path.
+
+CIFAR-10:
 ```bash {.line-numbers}
-python main.py --
+bash train_CIFAR10.sh 
+```
+
+ImageNet:
+```bash {.line-numbers}
+bash train_ImageNet.sh
 ```
 
 ## Results
+Trained models can be downloaded with the links provided (Google Drive).
+### ResNet-20/32/44/56 on CIFAR-10:
 
-　Some experimental results are shown here
+|      | ResNet-20 | ResNet-32 | ResNet-44 | ResNet-56 |
+|:----:|:---------:|:---------:|:---------:|:---------:|
+|  Full-Precison  |           |           |           |           |
+| Ternarized |           |           |           |           |
+
+### AlexNet on ImageNet:
+|                | First and Last Layer | Top1/Top5 Accuracy |
+|:--------------:|:--------------------:|:------------------:|
+|  [AlexNet (FP.)]()  |          Full-Precision          |    61.78%/82.87%   |
+| [AlexNet (Tern.)]() |          Full-Precision          |    58.59%/80.44%   |
+| [AlexNet (Tern.)]() |         Ternarized         |    57.15%/79.42%   |
+
+### ResNet-18/34/50/101 on ImageNet:
+
+|      | ResNet-18 | ResNet-34 | ResNet-50 | ResNet-101 |
+|:----:|:---------:|:---------:|:---------:|:----------:|
+|  Full-Precision  |     69.75%/89.07%     |      73.31%/91.42%     |       76.13%/92.86%    |     77.37%/93.55%       |
+| Ternarized |     66.01%/86.78%      |     70.95%/89.89%      |      74.00%/91.77%     |      75.63%/92.49%      |
+
+
+**ResNet-18 on ImageNet with Residual Expansion Layer (REL):**
+For reducing the accuracy drop caused by the aggresive model compression, we append the residual expansion layers to compensate the accuracy gap. Considering the aforementioned ternarized ResNet-18 is $t_{ex}=1$ (i.e. without REL).
+
+|   ResNet-18     | first and last layer | Top1/Top5 Accuracy |
+|:------:|:--------------------:|:------------------:|
+| [t_ex=2]() |         Tern         |    68.05%/88.04%   |
+| [t_ex=4]() |         Tern         |    69.44%/88.91%   |
 
 ## Methods
 
