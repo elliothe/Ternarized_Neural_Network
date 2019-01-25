@@ -80,7 +80,7 @@ Trained models can be downloaded with the links provided (Google Drive).
 
 
 **ResNet-18 on ImageNet with Residual Expansion Layer (REL):**
-For reducing the accuracy drop caused by the aggresive model compression, we append the residual expansion layers to compensate the accuracy gap. Considering the aforementioned ternarized ResNet-18 is $t_{ex}=1$ (i.e. without REL).
+For reducing the accuracy drop caused by the aggresive model compression, we append the residual expansion layers to compensate the accuracy gap. Considering the aforementioned ternarized ResNet-18 is **t_ex=1** (i.e. without REL).
 
 |   ResNet-18     | first and last layer | Top1/Top5 Accuracy |
 |:------:|:--------------------:|:------------------:|
