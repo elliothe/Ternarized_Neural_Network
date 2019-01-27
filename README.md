@@ -33,7 +33,8 @@ If you find this project useful to you, please cite [our work](https://arxiv.org
   
 * Python 3.6 (Anaconda)
 * Pytorch 4.1
-* [TensorboardX](https://github.com/lanpa/tensorboardX )
+  
+  
   
   
 ## Usage
@@ -51,6 +52,43 @@ ImageNet:
 bash train_ImageNet.sh
 ```
   
+In order to get the bash code run correctly, in `train_ImageNet.sh` file, please modify the `PYTHON` environment, `imagenet_path` imagenent dataset path, and `pretrained_model` trained model path. Use `--evaluate` to get validation accuracy.
+  
+```bash
+#!/usr/bin/env sh
+  
+PYTHON=/home/elliot/anaconda3/envs/pytorch_041/bin/python
+imagenet_path=
+pretrained_model=
+  
+############ directory to save result #############
+DATE=`date +%Y-%m-%d`
+  
+if [ ! -d "$DIRECTORY" ]; then
+    mkdir ./save
+    mkdir ./save/${DATE}/
+fi
+  
+############ Configurations ###############
+model=resnet18b_fq_lq_tern_tex_4
+dataset=imagenet
+epochs=50
+batch_size=256
+optimizer=Adam
+# add more labels as additional info into the saving path
+label_info=test
+  
+$PYTHON main.py --dataset ${dataset} \
+    --data_path ${imagenet_path}  --arch ${model} \ 
+    --save_path ./save/${DATE}/${dataset}_${model}_${epochs}_${label_info} \
+    --epochs ${epochs} --learning_rate 0.0001 --optimizer ${optimizer} \
+    --schedule 30 40 45  --gammas 0.2 0.2 0.5 \
+    --batch_size ${batch_size} --workers 8 --ngpu 2  \
+    --print_freq 100 --decay 0.000005 \
+    --resume ${pretrained_model} --evaluate\
+    --model_only  --fine_tune\
+```
+  
 ## Results
   
 Trained models can be downloaded with the links provided (Google Drive).
@@ -60,8 +98,8 @@ The entire network is ternarized (including first and last layer) for ResNet-20/
   
 |      | ResNet-20 | ResNet-32 | ResNet-44 | ResNet-56 |
 |:----:|:---------:|:---------:|:---------:|:---------:|
-|  Full-Precison  |           |           |           |           |
-| Ternarized |           |           |           |           |
+|  Full-Precison  |     91.70%      |     92.36%      |      92.47%     |      92.68%     |
+| Ternarized |      91.65%     |      92.48%     |     92.71%      |      92.86%     |
   
 ### AlexNet on ImageNet:
   

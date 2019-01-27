@@ -282,8 +282,6 @@ def main():
 
     if args.evaluate:
         validate(test_loader, net, criterion, log)
-        save_checkpoint({'state_dict': net.state_dict()}, False,
-                        args.save_path, 'checkpoint.pth.tar', log)
         return
 
 
